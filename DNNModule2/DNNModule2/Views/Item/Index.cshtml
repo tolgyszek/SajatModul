@@ -190,6 +190,33 @@
                 border: 1.5px solid #000;
                 padding: 5px;
             }
+
+        .balmargo-box-bal {
+            width: 600px;
+            height: 30px;
+            margin-top: 0px;
+            border-radius: 5px;
+            border: 1.5px solid #000;
+            padding: 5px;
+            margin-left: 5px;
+        }
+
+        .container-jobb {
+            position: absolute;
+            top: 140px;
+            right: 150px;
+            text-align: left;
+        }
+
+        .balmargo-box-bal-specialis {
+            width: 1310px;
+            height: 200px;
+            margin-top: 0px;
+            border-radius: 5px;
+            border: 1.5px solid #000;
+            padding: 5px;
+            margin-left: 5px;
+        }
     </style>
 </head>
 <body>
@@ -212,6 +239,8 @@
         <div class="bottom-right-box" id="continueButton1" onclick="showPage('page2')">TOVÁBB</div>
         <div class="bottom-right-box" id="continueButton2" onclick="showPage('page3')" style="display: none;">TOVÁBB</div>
         <div class="bottom-left-box" id="backButton" onclick="goBack()" style="display: none;">VISSZA</div>
+        <!-- KÜLDÉS gomb hozzáadása -->
+        <div class="bottom-right-box" id="sendButton" style="display: none;">KÜLDÉS</div>
     </div>
 
     <script>
@@ -226,24 +255,27 @@
                 document.getElementById('continueButton1').style.display = 'block';
                 document.getElementById('continueButton2').style.display = 'none';
                 document.getElementById('backButton').style.display = 'none';
+                document.getElementById('sendButton').style.display = 'none'; // KÜLDÉS gomb elrejtése
             } else if (page === 'page2') {
                 pageTitle = "KONFIGURÁLÁS";
-                document.getElementById('content').innerHTML = '<h1 class="page-title">' + pageTitle + '</h1><p class="balmargo">Nyomtatási technológia:</p><div class="checkbox-container"><input type="radio" id="fdm" name="technologia" value="FDM"><label for="fdm">FDM</label><br><input type="radio" id="sla" name="technologia" value="SLA"><label for="sla">SLA</label><br><input type="radio" id="sls" name="technologia" value="SLS"><label for="sls">SLS</label><br><input type="radio" id="dmp" name="technologia" value="DMP (Fém)"><label for="dmp">DMP (Fém)</label><br><input type="radio" id="cfc" name="technologia" value="CFC Kompozit"><label for="cfc">CFC Kompozit</label><br><input type="radio" id="egyeb" name="technologia" value="Egyéb technológia"><label for="egyeb">Egyéb technológia</label></div><p class="balmargo">Elvárt tulajdonságok:</p><div class="checkbox-container"><input type="checkbox" id="hoo" name="hoo" value="70 °C-nál magasabb hőállóság"><label for="hoo">70 °C-nál magasabb hőállóság</label><br><input type="checkbox" id="kemiai" name="kemiai" value="Kémiai ellenállóság"><label for="kemiai">Kémiai ellenállóság</label><br><input type="checkbox" id="szilardsag" name="szilardsag" value="Magas szilárdság"><label for="szilardsag">Magas szilárdság</label><br><input type="checkbox" id="uv" name="uv" value="UV ellenállóság"><label for="uv">UV ellenállóság</label><br><input type="checkbox" id="egyeb" name="egyeb" value="Egyéb: kérjük adja meg a Megjegyzés mezőben"><label for="egyeb">Egyéb: kérjük adja meg a Megjegyzés mezőben</label></div><p class="balmargo">Átfutási idő:</p><div class="checkbox-container"><input type="radio" id="standard_szolg" name="atfutasi" value="Standard szolgáltatás (3-7 munkanap)"><label for="standard_szolg">Standard szolgáltatás (3-7 munkanap)</label><br><input type="radio" id="expressz_szolg" name="atfutasi" value="Expressz szolgáltatás (1-3 munkanap)"><label for="expressz_szolg">Expressz szolgáltatás (1-3 munkanap)</label><br><input type="radio" id="expressz+_szolg" name="atfutasi" value="Expressz+ szolgáltatás (kevesebb, mint 24 óra)"><label for="expressz+_szolg">Expressz+ szolgáltatás (kevesebb, mint 24 óra)</label></div><div class="darabszam-container"><p >Darabszám:</p><input type="text" class="darabszam-textbox" placeholder="Írja be, hány darab termékre lenne szüksége" onkeypress="return event.charCode >= 48 && event.charCode <= 57"><br><br><p>Szín:</p><input type="text" class="darabszam-textbox" placeholder="Hexadecimális színkód (pl.: #000000)"<br><br><p>Megjegyzés:</p><input type="text" class="megjegyzes-textbox" placeholder="pl.: egyéb nyomtatási technológia, egyéb elvárt tulajdonságok"</div>'>
+                document.getElementById('content').innerHTML = '<h1 class="page-title">' + pageTitle + '</h1><p class="balmargo">Nyomtatási technológia:</p><div class="checkbox-container"><input type="radio" id="fdm" name="technologia" value="FDM"><label for="fdm">FDM</label><br><input type="radio" id="sla" name="technologia" value="SLA"><label for="sla">SLA</label><br><input type="radio" id="sls" name="technologia" value="SLS"><label for="sls">SLS</label><br><input type="radio" id="dmp" name="technologia" value="DMP (Fém)"><label for="dmp">DMP (Fém)</label><br><input type="radio" id="cfc" name="technologia" value="CFC Kompozit"><label for="cfc">CFC Kompozit</label><br><input type="radio" id="egyeb" name="technologia" value="Egyéb technológia"><label for="egyeb">Egyéb technológia</label></div><p class="balmargo">Elvárt tulajdonságok:</p><div class="checkbox-container"><input type="checkbox" id="hoo" name="hoo" value="70 °C-nál magasabb hőállóság"><label for="hoo">70 °C-nál magasabb hőállóság</label><br><input type="checkbox" id="kemiai" name="kemiai" value="Kémiai ellenállóság"><label for="kemiai">Kémiai ellenállóság</label><br><input type="checkbox" id="szilardsag" name="szilardsag" value="Magas szilárdság"><label for="szilardsag">Magas szilárdság</label><br><input type="checkbox" id="uv" name="uv" value="UV ellenállóság"><label for="uv">UV ellenállóság</label><br><input type="checkbox" id="egyeb" name="egyeb" value="Egyéb: kérjük adja meg a Megjegyzés mezőben"><label for="egyeb">Egyéb: kérjük adja meg a Megjegyzés mezőben</label></div><p class="balmargo">Átfutási idő:</p><div class="checkbox-container"><input type="radio" id="standard_szolg" name="atfutasi" value="Standard szolgáltatás (3-7 munkanap)"><label for="standard_szolg">Standard szolgáltatás (3-7 munkanap)</label><br><input type="radio" id="expressz_szolg" name="atfutasi" value="Expressz szolgáltatás (1-3 munkanap)"><label for="expressz_szolg">Expressz szolgáltatás (1-3 munkanap)</label><br><input type="radio" id="expressz+_szolg" name="atfutasi" value="Expressz+ szolgáltatás (kevesebb, mint 24 óra)"><label for="expressz+_szolg">Expressz+ szolgáltatás (kevesebb, mint 24 óra)</label></div><div class="darabszam-container"><p >Darabszám:</p><input type="text" class="darabszam-textbox" placeholder="Írja be, hány darab termékre lenne szüksége" onkeypress="return event.charCode >= 48 && event.charCode <= 57"><br><br><p>Szín:</p><input type="text" class="darabszam-textbox" placeholder="Hexadecimális színkód (pl.: #000000)"<br><br><p>Megjegyzés:</p><input type="text" class="megjegyzes-textbox" placeholder="pl.: egyéb nyomtatási technológia, egyéb elvárt tulajdonságok"</div>';
                 document.getElementById('button1').classList.remove('active');
                 document.getElementById('button2').classList.add('active');
                 document.getElementById('button3').classList.remove('active');
                 document.getElementById('continueButton1').style.display = 'none';
                 document.getElementById('continueButton2').style.display = 'block';
                 document.getElementById('backButton').style.display = 'block';
+                document.getElementById('sendButton').style.display = 'none'; // KÜLDÉS gomb elrejtése
             } else if (page === 'page3') {
                 pageTitle = "AJÁNLATKÉRÉS";
-                document.getElementById('content').innerHTML = '<h1 class="page-title">' + pageTitle + '</h1>
+                document.getElementById('content').innerHTML = '<h1 class="page-title">' + pageTitle + '</h1><p class="balmargo">Név:</p><input type="text" class="balmargo-box-bal" id="megjegyzes"><p class="balmargo">E-mail cím:</p><input type="text" class="balmargo-box-bal" id="email-cim"><p class="balmargo">Megjegyzések/Speciális kérések</p><textarea id="specialis" name="specialis" rows="4" cols="50" class="balmargo-box-bal-specialis"></textarea><div class = "container-jobb"><p class="balmargo">Cég / intézmény neve:</p><input type="text" class="balmargo-box-bal" id="cegneve"><p class="balmargo">Telefonszám:</p><input type="text" class="balmargo-box-bal" id="telefonszam"></div>';
                 document.getElementById('button1').classList.remove('active');
                 document.getElementById('button2').classList.remove('active');
                 document.getElementById('button3').classList.add('active');
                 document.getElementById('continueButton1').style.display = 'none';
                 document.getElementById('continueButton2').style.display = 'none';
                 document.getElementById('backButton').style.display = 'block';
+                document.getElementById('sendButton').style.display = 'block'; // KÜLDÉS gomb megjelenítése
             }
             document.querySelector('.page-title').innerText = pageTitle;
         }
@@ -258,4 +290,5 @@
     </script>
 </body>
 </html>
+
 
